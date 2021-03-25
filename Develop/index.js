@@ -48,25 +48,32 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
+    console.log('Welcome to the README generator. Please input your project information (Markdown supported)')
     inquirer
         .prompt(questions)
         .then (data => {
             //create template literal from data for both the file name and its contents
             const fileName = `README-${data.projectTitle.toLowerCase().split(' ').join('')}.md`;
             
-            const fileContent = `#${data.projectTitle}<br/>
-            ${data.description}<br/>
-            ##Table of Contents<br/>
-            ${data.tableContents}<br/>
-            ##Installation<br/>
-            ${data.installation}<br/>
-            ##Usage<br/>
-            ${data.usage}<br/>
-            ##Contributing<br/>
-            ${data.contributing}<br/>
-            ##Tests<br/>
-            ${data.tests}<br/>
-            ##Questions<br/>
+            const fileContent = `# ${data.projectTitle}  
+            ${data.description} 
+
+            ## Table of Contents  
+            ${data.tableContents} 
+
+            ## Installation  
+            ${data.installation} 
+
+            ## Usage  
+            ${data.usage}  
+
+            ## Contributing  
+            ${data.contributing}  
+
+            ## Tests  
+            ${data.tests} 
+
+            ## Questions  
             ${data.questions}`;
 
             fs.writeFile(fileName, fileContent, (err) =>
