@@ -66,16 +66,16 @@ function writeToFile(fileName, data) {
             //create template literal from data for both the file name and its contents
             const fileName = `README-${data.projectTitle.toLowerCase().split(' ').join('')}.md`;
 
-            //license text for user-selected license
-            let license;
-            //license badge for user-selected license
-            let licenseBadge;
-            //generates license text and badge
-            const fileLicense = (data) => {
+            //gets license badge and text
+            let { licenseBadge, license } = getLicense();
+
+            //generate license badge and text from user selection/input
+            function getLicense(data) {
                 const currentYear = new Date().getFullYear();
 
                 const copyrightOwner = data.copyrightOwner;
 
+                //generates license badge and text
                 if (data.license === 'Apache 2.0') {
                     licenseBadge = `[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`;
 
@@ -121,7 +121,10 @@ function writeToFile(fileName, data) {
                     along with this program.  If not, see [GNU.org](http://www.gnu.org/licenses/).`
                 }
 
-                console.log(license)
+                return {
+                    licenseBadge,
+                    license
+                }
             };
 
             const fileContent = `${licenseBadge}
