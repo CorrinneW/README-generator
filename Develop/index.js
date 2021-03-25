@@ -7,53 +7,58 @@ const questions = [
     {
         type: 'input',
         message: 'Project Title: ',
-        name: 'projectTitle'  
+        name: 'projectTitle'
     },
     {
         type: 'input',
         message: 'Description: ',
-        name: 'description'  
+        name: 'description'
     },
     {
         type: 'input',
         message: 'Table of Contents: ',
-        name: 'tableContents'  
+        name: 'tableContents'
     },
     {
         type: 'input',
         message: 'Installation',
-        name: 'installation'  
+        name: 'installation'
     },
     {
         type: 'input',
         message: 'Usage: ',
-        name: 'usage'  
+        name: 'usage'
     },
     {
         type: 'input',
         message: 'Contributing: ',
-        name: 'contributing'  
+        name: 'contributing'
     },
     {
         type: 'input',
         message: 'Tests: ',
-        name: 'tests'  
+        name: 'tests'
     },
     {
         type: 'input',
         message: 'Questions: ',
-        name: 'questions'  
+        name: 'questions'
     }
 ];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
+const answers = {}
 
-    //use template literal to build document
-}
+// TODO: Create a function to write README file
+// function writeToFile(fileName, data) {
+//     // fileName = () => { `README-${data.projectTitle.toLowerCase().split(' ').join('')}.md`; }
+
+//     // data = () => {
+//     //     console.log(JSON.stringify(data))};
+//     console.log(answers)
+// }
 
 // TODO: Create a function to initialize app
-async function init() {
+function init() {
     //Welcome user
     console.log('Welcome to the Professional README generator. Please fill out your project information...');
 
@@ -61,8 +66,25 @@ async function init() {
     inquirer
         .prompt(questions)
         .then(data => {
-            console.log(data)
-            // fs.writeFile('answers.json', JSON.stringify(answers), (error) => {if (error) console.log('Oh no', error)})
+            //use projectTitle to create filename
+            const fileName = `README-${data.projectTitle.toLowerCase().split(' ').join('')}.md`;
+            //use data to build template literal 
+            const content = `#${data.projectTitle}<br/>
+            ${data.description}<br/>
+            ##Table of Contents<br/>
+            ${data.tableContents}<br/>
+            ##Installation<br/>
+            ${data.installation}<br/>
+            ##Usage<br/>
+            ${data.usage}<br/>
+            ##Contributing<br/>
+            ${data.contributing}<br/>
+            ##Tests<br/>
+            ${data.tests}<br/>
+            ##Questions<br/>
+            ${data.questions}
+            `;
+
         })
         .catch(error => {
             if (error.isTtyError) {
@@ -73,9 +95,7 @@ async function init() {
                 console.error('something went wrong')
             }
         });
-    //output answers to a new array
 }
-
 
 // Function call to initialize app
 init();
