@@ -46,30 +46,15 @@ const questions = [
     }
 ];
 
-const answers = {}
-
 // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {
-//     // fileName = () => { `README-${data.projectTitle.toLowerCase().split(' ').join('')}.md`; }
-
-//     // data = () => {
-//     //     console.log(JSON.stringify(data))};
-//     console.log(answers)
-// }
-
-// TODO: Create a function to initialize app
-function init() {
-    //Welcome user
-    console.log('Welcome to the Professional README generator. Please fill out your project information...');
-
-    //ask user each question in array 
+function writeToFile(fileName, data) {
     inquirer
         .prompt(questions)
-        .then(data => {
-            //use projectTitle to create filename
+        .then (data => {
+            //create template literal from data for both the file name and its contents
             const fileName = `README-${data.projectTitle.toLowerCase().split(' ').join('')}.md`;
-            //use data to build template literal 
-            const content = `#${data.projectTitle}<br/>
+            
+            const fileContent = `#${data.projectTitle}<br/>
             ${data.description}<br/>
             ##Table of Contents<br/>
             ${data.tableContents}<br/>
@@ -82,11 +67,12 @@ function init() {
             ##Tests<br/>
             ${data.tests}<br/>
             ##Questions<br/>
-            ${data.questions}
-            `;
+            ${data.questions}`;
 
+            fs.writeFile(fileName, fileContent, (err) =>
+            err ? console.error(err) : console.log('Success!'))
         })
-        .catch(error => {
+        .catch (error => {
             if (error.isTtyError) {
                 // Prompt couldn't be rendered in the current environment
                 console.error('prompt could not be rendered in the current environment')
@@ -95,6 +81,11 @@ function init() {
                 console.error('something went wrong')
             }
         });
+}
+
+// TODO: Create a function to initialize app
+function init() {
+    writeToFile();
 }
 
 // Function call to initialize app
