@@ -63,13 +63,11 @@ const answers = {};
 //global variables to fill copyright date and holder in license text
 const currentYear = new Date().getFullYear();
 
-const copyrightOwner = answers.copyrightOwner;
-
-const license = [
+const licenses = [
     {
         name: 'Apache 2.0',
         badge: `[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`,
-        text: `Copyright ${currentYear} ${copyrightOwner}
+        text: `Copyright ${currentYear} ${answers.copyrightOwner}
 
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -87,7 +85,7 @@ const license = [
     {
         name: 'MIT License',
         badge: `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`,
-        text: `Copyright ${currentYear} ${copyrightOwner}
+        text: `Copyright ${currentYear} ${answers.copyrightOwner}
 
         Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
         
@@ -99,7 +97,7 @@ const license = [
     {
         name: 'GPLv3',
         badge: `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)`,
-        text: `Copyright (C) ${currentYear}  ${copyrightOwner}
+        text: `Copyright (C) ${currentYear}  ${answers.copyrightOwner}
 
         This program is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -117,21 +115,34 @@ const license = [
 ];
 
 //global variables for license badge and text
-const licenseBadge;
-const licenseText;
+let licenseBadge;
+let licenseText;
 
 //function to generate license badge and text from license object
 function getLicense() {
-    if (license === 'Apache 2.0') {
-        licenseBadge = 
-    }
-}
+    if (answers.license === 'Apache 2.0') {
+        licenseBadge = licenses[0].badge;
+        licenseText = licenses[0].text;
+    } else if (answers.license === 'MIT License') {
+        licenseBadge = licenses[1].badge;
+        licenseText = licenses[1].text;
+    } else if (answers.license === 'GPLv3') {
+        licenseBadge = licenses[2].badge;
+        licenseText = licenses[2].text;
+    } else {
+        licenseBadge = '';
+        licenseText = '';
+    };
+    console.log(licenseBadge, licenseText);
+};
 
 // TODO: Create a function to write README file
 //template literal forms basic structure of README
-function writeToFile(data) {
+function writeToFile() {
     const fileName = answers.projectTitle;
-    const fileContent = `${license.badge}
+    //generate license badge and text
+    getLicense();
+    const fileContent = `${licenseBadge}
             # ${answers.projectTitle}  
             ${answers.description} 
 
@@ -154,20 +165,17 @@ function writeToFile(data) {
             ${answers.questions}
             
             ##License
-            ${license.text}`;
+            ${licenseText}`;
 
-            fs.writeFile(fileName, fileContent, (err) =>
-                err ? console.error(err) : console.log('Success!'))
-        
-        // .catch(error => {
-        //     if (error.isTtyError) {
-        //         // Prompt couldn't be rendered in the current environment
-        //         console.error('prompt could not be rendered in the current environment')
-        //     } else {
-        //         // Something else went wrong
-        //         console.error('something went wrong')
-        //     }
-        // });
+    fs.writeFile(fileName, fileContent, (err) => {
+        if (err) {
+            console.error(err)
+        } else {
+            console.log('Success!')
+        }
+    })
+
+
 }
 
 // TODO: Create a function to initialize app
@@ -179,6 +187,15 @@ function init() {
             //add data to global object
             const returnedAnswers = Object.assign(answers, data);
             writeToFile(returnedAnswers);
+        })
+        .catch(error => {
+            if (error.isTtyError) {
+                // Prompt couldn't be rendered in the current environment
+                console.error('prompt could not be rendered in the current environment')
+            } else {
+                // Something else went wrong
+                console.error('something went wrong')
+            }
         });
 }
 
