@@ -116,30 +116,42 @@ const license = [
     }
 ];
 
+//global variables for license badge and text
+const licenseBadge;
+const licenseText;
+
+//function to generate license badge and text from license object
+function getLicense() {
+    if (license === 'Apache 2.0') {
+        licenseBadge = 
+    }
+}
+
 // TODO: Create a function to write README file
 //template literal forms basic structure of README
-function writeToFile(fileName, data) {
+function writeToFile(data) {
+    const fileName = answers.projectTitle;
     const fileContent = `${license.badge}
-            # ${data.projectTitle}  
-            ${data.description} 
+            # ${answers.projectTitle}  
+            ${answers.description} 
 
             ## Table of Contents  
-            ${data.tableContents} 
+            ${answers.tableContents} 
 
             ## Installation  
-            ${data.installation} 
+            ${answers.installation} 
 
             ## Usage  
-            ${data.usage}  
+            ${answers.usage}  
 
             ## Contributing  
-            ${data.contributing}  
+            ${answers.contributing}  
 
             ## Tests  
-            ${data.tests} 
+            ${answers.tests} 
 
             ## Questions  
-            ${data.questions}
+            ${answers.questions}
             
             ##License
             ${license.text}`;
@@ -147,15 +159,15 @@ function writeToFile(fileName, data) {
             fs.writeFile(fileName, fileContent, (err) =>
                 err ? console.error(err) : console.log('Success!'))
         
-        .catch(error => {
-            if (error.isTtyError) {
-                // Prompt couldn't be rendered in the current environment
-                console.error('prompt could not be rendered in the current environment')
-            } else {
-                // Something else went wrong
-                console.error('something went wrong')
-            }
-        });
+        // .catch(error => {
+        //     if (error.isTtyError) {
+        //         // Prompt couldn't be rendered in the current environment
+        //         console.error('prompt could not be rendered in the current environment')
+        //     } else {
+        //         // Something else went wrong
+        //         console.error('something went wrong')
+        //     }
+        // });
 }
 
 // TODO: Create a function to initialize app
