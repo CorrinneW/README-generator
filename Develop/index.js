@@ -67,7 +67,7 @@ function writeToFile(fileName, data) {
             const fileName = `README-${data.projectTitle.toLowerCase().split(' ').join('')}.md`;
 
             //gets license badge and text
-            let { licenseBadge, license } = getLicense();
+            const { licenseBadge, license } = getLicense();
 
             //generate license badge and text from user selection/input
             function getLicense(data) {
