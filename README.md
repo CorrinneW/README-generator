@@ -4,12 +4,12 @@
  The generator takes input from a set of inquirer prompts and formats them via a template literal into an organized README file. 
 
  ## Table of Contents  
- * [Installation] (https://github.com/CorrinneW/professional-readme-generator#installation)
- * [Usage] (https://github.com/CorrinneW/professional-readme-generator#usage)
- * [Contributing] (https://github.com/CorrinneW/professional-readme-generator#contributing)
- * [Tests] (https://github.com/CorrinneW/professional-readme-generator#tests)
- * [Questions] (https://github.com/CorrinneW/professional-readme-generator#questions)
- * [License] (https://github.com/CorrinneW/professional-readme-generator#license)
+ * [Installation] (https://github.com/CorrinneW/README.md#installation)
+ * [Usage] (https://github.com/CorrinneW/README.md#usage)
+ * [Contributing] (https://github.com/CorrinneW/README.md#contributing)
+ * [Tests] (https://github.com/CorrinneW/README.md#tests)
+ * [Questions] (https://github.com/CorrinneW/README.md#questions)
+ * [License] (https://github.com/CorrinneW/README.md#license)
 
  ## Installation  
  Ensure Node.js is installed, then simply save the package to your machine. 
